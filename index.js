@@ -23,7 +23,22 @@ client.once('ready', () => {
 });
 
 client.on('message', message => {
+	
+	var i = 0;
+	//var mutedUsers = [138021005821083650,168403260619620353];
+	//working muting, mutes whoever is in the mutedUsers array
+	
+	while(mutedUsers.length>i){
+		if (message.author.id==mutedUsers[i]) {
+			message.delete();
+		}
+		i++
+	}
+
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
+
+	//!
+	//>!!
 
 	if (message.content === prefix) {
 		message.channel.send('!!');
@@ -47,6 +62,7 @@ client.on('message', message => {
 		console.error(error);
 		message.reply('there was an error trying to execute that command!');
 	}
+
 });
 
 client.on('guildMemberAdd', member => {
