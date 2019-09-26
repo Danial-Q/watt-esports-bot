@@ -1,7 +1,7 @@
 const {modRole} = require('../config.json');
 
 module.exports = {
-	name: 'mute',
+	name: 'unmute',
 	description: 'Muting users',
 	guildOnly: true,
 	execute(message, args) {
@@ -11,43 +11,48 @@ module.exports = {
         if (message.member.roles.has(modRole)){
 
             const mutedJSONString = fs.readFileSync('muted.json','utf8');
-            console.log("String: "+mutedJSONString);
+            console.log("String: " + mutedJSONString);
 
             var mutedJSON = JSON.parse(mutedJSONString);
+            console.log("String: " + mutedJSON);
             console.log("Keys = ",Object.keys(mutedJSON[0]));
 
-
+            person = args[0]
             args[0] = args[0].replace('<','');
             args[0] = args[0].replace('>','');
             args[0] = args[0].replace('@','');
             
-            
-            
-
-            if(args.length > 1){
+            if(args.length == 1){
                 
                 i = 0;
                 console.log("Length: "+Object.keys(mutedJSON).length, "\ni: " + i)
                 while(Object.keys(mutedJSON).length>i){
                     console.log("user: " + mutedJSON[i].user, "\nargs[0]: " +args[0])
                     if(args[0] == mutedJSON[i].user){
-                        message.reply("User already muted");
-                        return;
+                        message.reply("Unmuted " + person);
+                        j = i;
+                        userExists = true;
                     }
                     i++
                 }
 
-                const reason = args.splice(1).join(" ");
-                console.log(reason);
+                if(!userExists) {
+                    message.reply("User wasn't muted");
+                    return;
+                }
 
-                var d = new Date();
-                time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + " " +  d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear() 
+                console.log(mutedJSON[j]);
 
-                mutedJSON.push({user: args[0], reason: reason, by: message.author.id, when: time});
+                mutedJSON.splice(j, 1)
+
+                console.log(mutedJSON[j]);
+
+
+                
             }else{
-                message.reply("Please include a reason")
+                message.reply("Too few or too many arguments");
+                return;
             }
-
            
             fs.writeFile ("muted.json", JSON.stringify(mutedJSON), function(err) {
                 if (err) throw err;
