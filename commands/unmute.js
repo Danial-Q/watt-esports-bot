@@ -23,7 +23,7 @@ module.exports = {
             args[0] = args[0].replace('@','');
             
             if(args.length == 1){
-                
+                userExists = false;
                 i = 0;
                 console.log("Length: "+Object.keys(mutedJSON).length, "\ni: " + i)
                 while(Object.keys(mutedJSON).length>i){
@@ -37,7 +37,7 @@ module.exports = {
                 }
 
                 if(!userExists) {
-                    message.reply("User wasn't muted");
+                    message.reply(person + " wasn't muted in the first place.");
                     return;
                 }
 

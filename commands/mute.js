@@ -45,7 +45,8 @@ module.exports = {
 
                 mutedJSON.push({user: args[0], reason: reason, by: message.author.id, when: time});
             }else{
-                message.reply("Please include a reason")
+                message.reply("Please include a reason");
+                return;
             }
 
            
@@ -54,9 +55,6 @@ module.exports = {
                 console.log('complete');
                 }
             );
-
-            console.log(args[0]);
-            console.log("It works", args[0]);
         }
 	}
 };
