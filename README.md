@@ -1,9 +1,10 @@
 # Watt Esports Discord Bot
 
-##### The bot for the Heriot Watt Esports society discord server.
- 
-   
- 
+### The bot for the Heriot Watt Esports society discord server.
+
+## Implementation Details
+* [Command Handler](commands/commandHandlerREADME.md) 
+* [Event Handler](events/eventHandlerREADME.md)
 
 ## Branch Naming Convention
 
@@ -15,8 +16,8 @@
 ## config.json example
 
 ```{
-    "token": "your token here",
-    "prefix" : "!",
+    "token": "Bot Token here",
+    "prefix" : "Chosen Prefix",
     "inviteLink" : "Discord perm invite link here"
     "joiningRole" : "Role ID to give on Join",
     "channelIDs" : {
