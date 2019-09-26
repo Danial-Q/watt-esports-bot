@@ -1,6 +1,6 @@
 import {readdirSync} from 'fs';
 import {Client, Collection} from 'discord.js';
-import {token, prefix, joiningRole, channelIDs} from './config.json';
+import {token, prefix, joiningRole, modRole, channelIDs} from './config.json';
 const client = new Client();
 
 client.commands = new Collection();
@@ -25,7 +25,7 @@ client.once('ready', () => {
 client.on('message', message => {
 	
 	var i = 0;
-	var mutedUsers;
+	var mutedUsers = [];
 	//var mutedUsers = [138021005821083650,168403260619620353];
 	//working muting, mutes whoever is in the mutedUsers array
 
