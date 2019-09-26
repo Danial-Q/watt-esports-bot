@@ -17,11 +17,11 @@
 ```{
     "token": "your token here",
     "prefix" : "!",
-    "joiningRole" : "623916241934120510",
+    "inviteLink" : "Discord perm invite link here"
+    "joiningRole" : "Role ID to give on Join",
     "channelIDs" : {
-        "membershipVerification" : "623891536899175312",
-        "welcomeChannel" : "623925623404074769"
-    },
-    "filterList" : ["test"]
+        "membershipVerification" : "Membership Verification Channel ID",
+        "welcomeChannel" : "Welcome Channel ID"
+    }
 }
 ```
