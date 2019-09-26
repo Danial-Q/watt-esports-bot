@@ -1,6 +1,6 @@
-import {readdirSync} from 'fs';
-import {Client, Collection} from 'discord.js';
-import {token, prefix, joiningRole, channelIDs} from './config.json';
+const {readdirSync} = require ('fs');
+const {Client, Collection} = require ('discord.js');
+const {token, prefix, joiningRole, channelIDs} = require('./config.json');
 const client = new Client();
 
 client.commands = new Collection();
