@@ -5,12 +5,12 @@
    
  
 
-## Branch Naming
+## Branch Naming Convention
 
-`feat/featureName` - features  
-`fix/fixName` - fixes  
-`refactor/refactorName` - refactorings  
-`dep/dependancyName` -dependancy updates  
+`feat/featureName` - New features  
+`fix/fixName` - Bug fixes  
+`refactor/refactorName` - Refactoring code  
+`dep/dependancyName` - Dependancy Work  
 
 ## config.json example
 
