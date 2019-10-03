@@ -5,12 +5,12 @@ module.exports = {
 	description: 'Veriyfing Membership Status',
 	guildOnly: true,
 	execute(message, args) {
-		const member = '<@' + message.author.id + '>: ';
+		const member = message.author;
 		const hwID = args[0].toUpperCase();
 
 		if (hwID.length === 9 && hwID.startsWith('H')) {
 			message.delete();
-			message.client.channels.get(channelIDs.membershipVerification).send(member + hwID);
+			message.client.channels.get(channelIDs.membershipVerification).send(member + ': ' + hwID);
 		}
 		else {
 			message.delete();
