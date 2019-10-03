@@ -6,7 +6,7 @@
 
 ### Command Handler
 
-**NOTE** - This is only used in the `message` event of discord.js. If adding functionality to another event, or without the prefix please follow [this](../events/eventHandlerREADME.md).
+**NOTE** - This is only used in the `message` event of discord.js. If adding functionality to another event, or without the prefix, please look at [event handler](#event-handler).
 
 This handles all commands that prefixed with the defined prefix in your `config.json` file.
 
