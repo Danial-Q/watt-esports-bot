@@ -1,5 +1,4 @@
 const {RichEmbed} = require('discord.js');
-const {channelIDs} = require('../config.json');
 
 module.exports = {
 	name: 'report',
@@ -7,6 +6,7 @@ module.exports = {
 	execute(message, args) {
 		const user = message.mentions.users.first();
 		const reason = args.join(' ').slice('22');
+		const {channelIDs} = message.client.config;
 
 		if (!user) {
 			return message.channel.send('Please mention a user to report');

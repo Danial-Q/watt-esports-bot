@@ -1,2 +1,5 @@
 config.json
+spreadsheetCredentials.json
+
+storage
 node_modules
