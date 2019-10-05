@@ -1,6 +1,6 @@
 const GoogleSpreadsheet = require('google-spreadsheet');
 const credentials = require('../spreadsheetCredentials.json');
-const {readFileSync, writeFile} = require ('fs');
+const { readFileSync, writeFile } = require('fs');
 
 module.exports = {
 	name: 'member',
@@ -9,32 +9,29 @@ module.exports = {
 	execute(message, args) {
 		const member = message.member;
 		const hwID = args[0].toUpperCase();
-		const {spreadsheetID, roleIDs} = message.client.config;
+		const { spreadsheetID, roleIDs } = message.client.config;
 
 		message.delete();
 		if (hwID.length === 9 && hwID.startsWith('H')) {
 			const spreadsheet = new GoogleSpreadsheet(spreadsheetID);
 
 			spreadsheet.useServiceAccountAuth(credentials, () => {
-				spreadsheet.getCells(1, {
-					'min-col': 4,
-					'max-col': 4,
-					'return-empty': false
-				}, (err, cells) => {
-					let hwIDinSheet = false;
+				spreadsheet.getRows(1, (err, rows) => {
+					let hwIDInSheet = false;
 
-					for (const cell of cells) {
-						if (cell.value === hwID) {
-							hwIDinSheet = true;
+					for (const row of rows) {
+						if (row.matriculationnumber === hwID) {
+							hwIDInSheet = true;
+							row.discordname = member.user.username + '#' + member.user.discriminator;
+							row.updated = 'Yes';
+							row.save();
+							member.addRole(roleIDs.socMember);
 							break;
 						}
 					}
 
-					if (hwIDinSheet) {
-						// TO DO Add discord username with number to corresponding column
-						member.addRole(roleIDs.socMember);
-					} else {
-						const storedHWIDs = readFileSync('storage/hwIDs.json', 'utf8');
+					if (!hwIDInSheet) {
+						const storedHWIDs = readFileSync('storage/hwIds.json', 'utf8');
 						const storedHWIDsJSON = JSON.parse(storedHWIDs);
 
 						storedHWIDsJSON.hwID = member.id;
