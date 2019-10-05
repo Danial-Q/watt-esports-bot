@@ -7,7 +7,7 @@ module.exports = {
 	execute(message, args) {
 		const member = message.member;
 		const hwID = args[0].toUpperCase();
-		const { spreadsheetID, roleIDs, spreadsheetConfig } = message.client.config;
+		const {roleIDs, spreadsheetID, spreadsheetConfig} = message.client.config;
 
 		message.delete();
 		if (hwID.length === 9 && hwID.startsWith('H')) {

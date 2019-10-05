@@ -54,9 +54,10 @@ If the event already exists, you can do into the corresponding file and add the 
         "misc": "Misc Label ID",
         "socMember": "Soc Member ID"
     },
+    "guildID" : "Guild ID",
     "spreadsheetID": "Spreadsheet ID",
     "spreadsheetConfig": {
-        Spreadsheet auth obj here
+        Spreadsheet Auth Obj here
     }
 }
 ```
