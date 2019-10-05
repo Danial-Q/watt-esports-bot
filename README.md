@@ -42,13 +42,21 @@ If the event already exists, you can do into the corresponding file and add the 
 ## config.json example
 
 ```{
-    "token": "Bot Token here",
-    "prefix" : "Chosen Prefix",
-    "inviteLink" : "Discord perm invite link here"
-    "joiningRole" : "Role ID to give on Join",
-    "channelIDs" : {
-        "membershipVerification" : "Membership Verification Channel ID",
-        "welcomeChannel" : "Welcome Channel ID"
+    "token": "Bot token here",
+    "prefix": "Selected prefix",
+    "inviteLink": "Permanent discord invi",
+    "channelIDs": {
+        "adminLogging": "Admin log channel ID",
+        "welcomeChannel": "Welcome channel ID"
+    },
+    "roleIDs": {
+        "games": "Games Label ID",
+        "misc": "Misc Label ID",
+        "socMember": "Soc Member ID"
+    },
+    "spreadsheetID": "Spreadsheet ID",
+    "spreadsheetConfig": {
+        Spreadsheet auth obj here
     }
 }
 ```
