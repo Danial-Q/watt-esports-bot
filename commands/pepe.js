@@ -1,5 +1,5 @@
 const {Attachment} = require('discord.js');
-const {pepeDatabase} = require('../utils/pepeDatabase.js');
+const pepeDatabase = require('../utils/pepeDatabase.js');
 
 module.exports = {
 	name: 'pepe',

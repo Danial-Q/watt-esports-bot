@@ -1,4 +1,4 @@
-export const pepeDatabase = [
+module.exports = [
 	'https://imgur.com/kInSe0v/',
 	'https://imgur.com/bFp5LkU/',
 	'https://imgur.com/klkeMme/',

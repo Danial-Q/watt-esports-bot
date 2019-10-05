@@ -16,12 +16,10 @@ module.exports = (client, message) => {
 	try {
 		if (command.guildOnly && message.channel.type !== 'text') {
 			message.reply('I can\'t execute that command inside DMs!');
-		}
-		else {
+		} else {
 			command.execute(message, args);
 		}
-	}
-	catch (error) {
+	} catch (error) {
 		console.error(error);
 		message.reply('there was an error trying to execute that command!');
 	}
