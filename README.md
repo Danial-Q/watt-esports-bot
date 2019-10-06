@@ -53,7 +53,7 @@ If the event already exists, you can do into the corresponding file and add the 
 		"getRole": "Get Role ID"
     },
 	"guildID" : "Guild ID",
-	"messageIDs": {
+	"messageIDs": { // Message IDs
 		"memberToggle": "Member Toggle ID",
 		"lfgToggle": "LFG Toggle ID"
 	},
