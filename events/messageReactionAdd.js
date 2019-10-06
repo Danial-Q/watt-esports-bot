@@ -1,32 +1,20 @@
-const {memberToggle, lfgToggle} = require('../utils/reactRoleMaping');
+const {messageMap} = require('../utils/reactRoleMaping');
 
 module.exports = (client, reaction, user) => {
-	const {messageIDs, guildID} = client.config;
+	const {guildID} = client.config;
+	const guildObj = client.guilds.get(guildID);
 
-	if (reaction.message.id === messageIDs.memberToggle) {
-		for (const option of memberToggle) {
-			if (reaction.emoji.name === option.emoji) {
-				const guildObj = client.guilds.get(guildID);
-
-				guildObj.members.forEach((member) => {
-					if (member.id === user.id) {
-						member.addRole(guildObj.roles.find(r => r.name === option.role));
-					}
-				});
-			}
-		}
-	}
-
-	if (reaction.message.id === messageIDs.lfgToggle) {
-		for (const option of lfgToggle) {
-			if (reaction.emoji.name === option.emoji) {
-				const guildObj = client.guilds.get(guildID);
-
-				guildObj.members.forEach((member) => {
-					if (member.id === user.id) {
-						member.addRole(guildObj.roles.find(r => r.name === option.role));
-					}
-				});
+	for (const messageMapOption of messageMap) {
+		// Message ID is stored as string since it's too big a number to store
+		if (messageMapOption.messageID === reaction.message.id.toString()) {
+			for (const roleMap of messageMapOption.reactMap) {
+				if (reaction.emoji.name === roleMap.emoji) {
+					guildObj.members.forEach((member) => {
+						if (member.id === user.id) {
+							member.addRole(guildObj.roles.find(r => r.name === roleMap.role));
+						}
+					});
+				}
 			}
 		}
 	}
