@@ -47,16 +47,25 @@ If the event already exists, you can do into the corresponding file and add the 
     "token": "Bot token here",
     "prefix": "Selected prefix",
     "inviteLink": "Permanent discord invite link",
-    "channelIDs": {
-        "adminLogging": "Admin log channel ID",
-        "welcome": "Welcome channel ID"
+    "channelIDs": { // Channel IDs
+        "adminLogging": "Admin log ID",
+        "welcome": "Welcome ID",
+		"getRole": "Get Role ID"
     },
-    "roleIDs": {
+	"guildID" : "Guild ID",
+	"messageIDs": {
+		"memberToggle": "Member Toggle ID",
+		"lfgToggle": "LFG Toggle ID"
+	},
+    "roleIDs": { // Role IDs
         "games": "Games Label ID",
+		"hwMember": "HW Members ID",
+		"member": "Members ID",
+		"lfg": "LFG ID",
+		"noLfg: "No LFG ID",
         "misc": "Misc Label ID",
         "socMember": "Soc Member ID"
     },
-    "guildID" : "Guild ID",
     "spreadsheetID": "Spreadsheet ID",
     "spreadsheetConfig": {
         Spreadsheet Auth Obj here

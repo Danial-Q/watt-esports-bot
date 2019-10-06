@@ -2,6 +2,7 @@ module.exports = (client) => {
 	const {channelIDs, guildID, messageIDs} = client.config;
 	const guildObj = client.guilds.get(guildID);
 	const welcomeChannel = guildObj.channels.get(channelIDs.welcome);
+	const getRoleChannel = guildObj.channels.get(channelIDs.getRole);
 
 	client.user.setPresence({
 		game: {
@@ -12,10 +13,13 @@ module.exports = (client) => {
 	// Without this first reaction add and remove to the message doesn't register, whcih doesn't trigger giving roles
 	console.log('Initialising all reaction messages...');
 
-	welcomeChannel.fetchMessage(messageIDs.memberTypeSelect)
+	welcomeChannel.fetchMessage(messageIDs.memberToggle)
 		.then(() => {
-			console.log('Welcome message initialised!');
-			console.log('Ready!');
+			console.log('Member Toggle Initialised!');
+			getRoleChannel.fetchMessage(messageIDs.lfgToggle)
+				.then(() => {
+					console.log('LFG Toggle Initialised');
+					console.log('Ready!');
+				});
 		});
-
 };
