@@ -4,6 +4,7 @@ module.exports = {
 	name: 'addrole',
 	description: 'Links a reaction to a role on a certain message',
 	guildOnly: true,
+	modOnly: true,
 	execute(message, args) {
 		const {roleIDs, guildID, channelIDs} = message.client.config;
 		const guildObj = message.client.guilds.get(guildID);
@@ -17,9 +18,8 @@ module.exports = {
 		}
 
 		if (!emojiNameRaw || !roleName || !messageID) {
-			// Throws generic error aswell if this return is missed
-			// eslint-disable-next-line consistent-return
-			return message.channel.send('Oops! Try again with `addrole <emoji> <roleName> <messageID>`');
+			message.channel.send('Oops! Try again with `addrole <emoji> <roleName> <messageID>`');
+			return;
 		}
 
 		for (const messageMapOption of messageMap) {

@@ -3,7 +3,8 @@ const GoogleSpreadsheet = require('google-spreadsheet');
 module.exports = {
 	name: 'update',
 	description: 'Checks all members on pending tab and verifies if they are paying members',
-	guildOnly: 'true',
+	guildOnly: true,
+	modOnly: true,
 	execute(message) {
 		const {guildID, roleIDs, spreadsheetID, spreadsheetConfig} = message.client.config;
 		const spreadsheet = new GoogleSpreadsheet(spreadsheetID);
