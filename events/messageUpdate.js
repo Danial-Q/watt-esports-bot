@@ -15,7 +15,7 @@ module.exports = (client, oldMessage, newMessage) => {
 		.addField('Location', `${newMessage.channel}`)
 		.addField('Before', `${oldMessageContent}`)
 		.addField('After', `${newMessageContent}`)
-		.setFooter(`${newMessage.createdAt}`);
+		.setFooter(`${newMessage.editedTImestamp}`);
 
 	client.channels.get(adminLogging).send(editEmbed);
 };
