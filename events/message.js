@@ -6,6 +6,9 @@ module.exports = (client, message) => {
 
 	for (const bannedWord of bannedWords) {
 		if (message.content.includes(bannedWord) && !message.author.bot) {
+			if (message.content.startsWith('!unbanword')) {
+				break;
+			}
 			message.delete();
 
 			const bannedWordUseEmbed = new RichEmbed()
