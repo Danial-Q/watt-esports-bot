@@ -9,11 +9,13 @@ module.exports = {
 		const {channelIDs} = message.client.config;
 
 		if (!user) {
-			return message.channel.send('Please mention a user to report');
+			message.channel.send('Please mention a user to report');
+			return;
 		}
 
-		if(!reason) {
-			return message.channel.send('Please give a reason');
+		if (!reason) {
+			message.channel.send('Please give a reason');
+			return;
 		}
 
 		const reportEmbed = new RichEmbed()
@@ -27,6 +29,6 @@ module.exports = {
 
 		message.delete();
 		message.author.send('Your report has been submitted!');
-		return message.client.channels.get(channelIDs.adminLogging).send(reportEmbed);
+		message.client.channels.get(channelIDs.adminLogging).send(reportEmbed);
 	}
 };
