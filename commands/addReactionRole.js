@@ -1,4 +1,5 @@
-const {readFileSync, writeFile} = require('fs');
+const {writeFile} = require('fs');
+const reactMap = require('../utils/reactRoleMap.json');
 
 module.exports = {
 	name: 'addrole',
@@ -23,18 +24,14 @@ module.exports = {
 			return;
 		}
 
-		const reactMapJSON = JSON.parse(readFileSync('utils/reactRoleMap.json'));
-
-		for (const reactMapKey of Object.keys(reactMapJSON)) {
+		for (const reactMapKey of Object.keys(reactMap)) {
 			if (reactMapKey === messageID.toString()) {
-				console.log(reactMapJSON[reactMapKey]);
-				const reactArray = reactMapJSON[reactMapKey];
+				const reactArray = reactMap[reactMapKey];
 				const emojiName = emojiNameRaw.substr(2).slice(0, -20);
 				const subStrLength = emojiName.length + 3;
 
-
 				reactArray.push({role: roleName, emoji: emojiName});
-				writeFile('utils/reactRoleMap.json', JSON.stringify(reactMapJSON), err => {
+				writeFile('utils/reactRoleMap.json', JSON.stringify(reactMap), err => {
 					if (err) {
 						message.react('❗');
 						message.reply(' something went wrong! Please try again');
