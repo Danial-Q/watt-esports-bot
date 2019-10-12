@@ -1,9 +1,5 @@
 config.json
 
 node_modules
-<<<<<<< HEAD
-utils/reactRoleMaping.js
-utils/profanities.json
-=======
 utils/reactRoleMap.json
->>>>>>> Persistence for addrole command
+utils/profanities.json
