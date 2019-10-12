@@ -1,4 +1,4 @@
-const {messageMap} = require('../utils/reactRoleMaping');
+const {readFileSync, writeFile} = require('fs');
 
 module.exports = {
 	name: 'addrole',
@@ -22,20 +22,30 @@ module.exports = {
 			return;
 		}
 
-		for (const messageMapOption of messageMap) {
-			if (messageMapOption.messageID === messageID.toString()) {
+		const reactMapJSON = JSON.parse(readFileSync('utils/reactRoleMap.json'));
+
+		for (const reactMapKey of Object.keys(reactMapJSON)) {
+			if (reactMapKey === messageID.toString()) {
+				console.log(reactMapJSON[reactMapKey]);
+				const reactArray = reactMapJSON[reactMapKey];
 				const emojiName = emojiNameRaw.substr(2).slice(0, -20);
 				const subStrLength = emojiName.length + 3;
+
+
+				reactArray.push({role: roleName, emoji: emojiName});
+				writeFile('utils/reactRoleMap.json', JSON.stringify(reactMapJSON), err => {
+					if (err) {
+						message.react('❗');
+						message.reply(' something went wrong! Please try again');
+						return;
+					}
+				});
 
 				getRoleChannel.fetchMessage(messageID)
 					.then(messageToAddReact => {
 						messageToAddReact.react(emojiNameRaw.substr(subStrLength).slice(0, -1));
 					});
-				messageMapOption.reactMap.push({role: roleName, emoji: emojiName});
-				console.log(messageMapOption.reactMap);
 				message.react('✅');
-				// Doesn't persist through bot restart. Implement persistance or manually add to arrays.
-				message.author.send(`Sucessfully linked "${roleName}" to "${emojiName}". Please DM someone who manages the bot with this info to ensure it persists!`);
 			}
 		}
 	}
