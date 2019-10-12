@@ -4,6 +4,7 @@ module.exports = {
 	name: 'member',
 	description: 'Veriyfing Membership Status',
 	guildOnly: true,
+	usage: 'member <MatriculationNumber>',
 	execute(message, args) {
 		const member = message.member;
 		const hwID = args[0].toUpperCase();

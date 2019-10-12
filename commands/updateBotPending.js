@@ -5,6 +5,7 @@ module.exports = {
 	description: 'Checks all members on pending tab and verifies if they are paying members',
 	guildOnly: true,
 	modOnly: true,
+	usage: 'update',
 	execute(message) {
 		const {guildID, roleIDs, spreadsheetID, spreadsheetConfig} = message.client.config;
 		const spreadsheet = new GoogleSpreadsheet(spreadsheetID);

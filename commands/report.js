@@ -3,6 +3,7 @@ const {RichEmbed} = require('discord.js');
 module.exports = {
 	name: 'report',
 	description: 'Reports a mentioned user with a reason',
+	usage: 'report <user> <reason>',
 	execute(message, args) {
 		const user = message.mentions.users.first();
 		const reason = args.join(' ').slice('22');

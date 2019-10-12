@@ -5,6 +5,7 @@ module.exports = {
 	description: 'Links a reaction to a role on a certain message',
 	guildOnly: true,
 	modOnly: true,
+	usage: 'addrole <emote> <rolename> <messageID>',
 	execute(message, args) {
 		const {roleIDs, guildID, channelIDs} = message.client.config;
 		const guildObj = message.client.guilds.get(guildID);
