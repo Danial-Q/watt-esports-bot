@@ -4,21 +4,25 @@ const {bannedWords} = require('../utils/profanities.json');
 module.exports = (client, message) => {
 	const {prefix, channelIDs, roleIDs} = client.config;
 
+
+
+
+	//Muted Users
 	const fs = {readFileSync, writeFile} = require ('fs');
 
 	var i = 0;
 
 	const mutedJSONString = fs.readFileSync('muted.json','utf8');
 	var mutedJSON = JSON.parse(mutedJSONString);
-
-	if(!message.member.roles.has(roleIDs.mod)){
-		while(Object.keys(mutedJSON).length>i){
-
-			if(message.author.id== mutedJSON[i].user){
-				message.delete();
-				return;
+	if(!message.member.bot){
+		if(!message.member.roles.has(roleIDs.mod)){
+			while(Object.keys(mutedJSON).length>i){
+				if(message.author.id== mutedJSON[i].user){
+					message.delete();
+					return;
+				}
+				i++
 			}
-			i++
 		}
 	}
 	// while(mutedUsers.length>i){
@@ -28,7 +32,7 @@ module.exports = (client, message) => {
 	// 	i++
 	// }
 
-
+	//Banned words
 	for (const bannedWord of bannedWords) {
 		if (message.content.includes(bannedWord) && !message.author.bot) {
 			if (message.content.startsWith('!unbanword')) {
@@ -51,7 +55,7 @@ module.exports = (client, message) => {
 	}
 
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
-
+	//! !!
 	if (message.content === prefix) {
 		message.channel.send('!!');
 	}
