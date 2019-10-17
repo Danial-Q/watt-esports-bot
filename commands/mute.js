@@ -5,7 +5,7 @@ module.exports = {
 	description: 'Muting users',
 	guildOnly: true,
 	execute(message, args) {
-        var fs = require('fs');
+        const fs = {readFileSync, writeFile} = require ('fs');
 
 
         if (message.member.roles.has(modRole)){
@@ -17,12 +17,7 @@ module.exports = {
             console.log("Keys = ",Object.keys(mutedJSON[0]));
 
 
-            args[0] = args[0].replace('<','');
-            args[0] = args[0].replace('>','');
-            args[0] = args[0].replace('@','');
-            
-            
-            
+            args[0] = message.mentions.members.first().id;   
 
             if(args.length > 1){
                 
@@ -40,8 +35,7 @@ module.exports = {
                 const reason = args.splice(1).join(" ");
                 console.log(reason);
 
-                var d = new Date();
-                time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + " " +  d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear() 
+                time = message.createdAt;
 
                 mutedJSON.push({user: args[0], reason: reason, by: message.author.id, when: time});
             }else{

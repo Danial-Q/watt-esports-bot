@@ -5,7 +5,7 @@ module.exports = {
 	description: 'Muting users',
 	guildOnly: true,
 	execute(message, args) {
-        var fs = require('fs');
+        const fs = {readFileSync, writeFile} = require ('fs');
 
 
         if (message.member.roles.has(modRole)){
