@@ -10,10 +10,6 @@ module.exports = {
 		const {guildID, roleIDs, spreadsheetID, spreadsheetConfig} = message.client.config;
 		const spreadsheet = new GoogleSpreadsheet(spreadsheetID);
 
-		if (message.member.roles.has(roleIDs.modRole)) {
-			return;
-		}
-
 		spreadsheet.useServiceAccountAuth(spreadsheetConfig, () => {
 			spreadsheet.getRows(2, (err, botPendingRows) => {
 				spreadsheet.getRows(1, (err, verifiedRows) => {

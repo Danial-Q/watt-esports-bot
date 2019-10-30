@@ -1,5 +1,7 @@
 const {RichEmbed} = require('discord.js');
 
+// TODO: Make RichEmbed menu OR change how this works
+
 module.exports = {
 	name: 'help',
 	description: 'Lists all commands, usage and description',
