@@ -1,54 +1,43 @@
-const {roleIDs} = require('../config.json');
+const {RichEmbed} = require('discord.js');
+const {writeFile} = require('fs');
+const mutedUsersList = require('../utils/muted.json');
 
 module.exports = {
 	name: 'mute',
-    description: 'Muting users',
-    usage: 'mute',
+	description: 'Mutes a user with a given reason',
+	guildOnly: true,
+	modOnly: true,
+	usage: 'mute <user> <reason>',
 	execute(message, args) {
-        const fs = {readFileSync, writeFile} = require ('fs');
+		const {adminLogging} = message.client.config.channelIDs;
+		const memberToMute = message.mentions.members.first();
+		const reason = args.join(' ').slice('22');
+
+		if (!memberToMute) {
+			message.channel.send('Please mention a user to mute!');
+			return;
+		}
+
+		if (!reason) {
+			message.channel.send('Please include a reason');
+			return;
+		}
+		const muteEmbed = new RichEmbed()
+			.setTitle('User Mute')
+			.setColor('#FF0000')
+			.addField('User', `${memberToMute}`, true)
+			.addField('Muted by', `${message.author}`, true)
+			.addField('Reason', `${reason}`)
+			.setFooter(`${message.createdAt}`);
 
 
-        if (message.member.roles.has(roleIDs.mod)){
-
-            const mutedJSONString = fs.readFileSync('muted.json','utf8');
-            console.log("String: "+mutedJSONString);
-
-            var mutedJSON = JSON.parse(mutedJSONString);
-            console.log("Keys = ",Object.keys(mutedJSON[0]));
-
-
-            args[0] = message.mentions.members.first().id;   
-
-            if(args.length > 1){
-                
-                i = 0;
-                console.log("Length: "+Object.keys(mutedJSON).length, "\ni: " + i)
-                while(Object.keys(mutedJSON).length>i){
-                    console.log("user: " + mutedJSON[i].user, "\nargs[0]: " +args[0])
-                    if(args[0] == mutedJSON[i].user){
-                        message.reply("User already muted");
-                        return;
-                    }
-                    i++
-                }
-
-                const reason = args.splice(1).join(" ");
-                console.log(reason);
-
-                time = message.createdAt;
-
-                mutedJSON.push({user: args[0], reason: reason, by: message.author.id, when: time});
-            }else{
-                message.reply("Please include a reason");
-                return;
-            }
-
-           
-            fs.writeFile ("muted.json", JSON.stringify(mutedJSON), function(err) {
-                if (err) throw err;
-                console.log('complete');
-                }
-            );
-        }
+		mutedUsersList.mutedUsers.push(memberToMute.id);
+		writeFile('utils/muted.json', JSON.stringify(mutedUsersList), (err) => {
+			if (err) {
+				throw err;
+			}
+			message.react('✅');
+			message.client.channels.get(adminLogging).send(muteEmbed);
+		});
 	}
 };

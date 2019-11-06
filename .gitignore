@@ -3,4 +3,4 @@ config.json
 node_modules
 utils/reactRoleMap.json
 utils/profanities.json
-muted.json
+utils/muted.json

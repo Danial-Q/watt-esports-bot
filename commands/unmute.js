@@ -1,65 +1,46 @@
-const {roleIDs} = require('../config.json');
+const {writeFile} = require('fs');
+const mutedUserList = require('../utils/muted.json');
+const {RichEmbed} = require('discord.js');
 
 module.exports = {
 	name: 'unmute',
-	description: 'Muting users',
+	description: 'Unmuted a mentioned user',
 	guildOnly: true,
-	execute(message, args) {
-        const fs = {readFileSync, writeFile} = require ('fs');
+	modOnly: true,
+	execute(message) {
+		const {adminLogging} = message.client.config.channelIDs;
+		const memberToUnmute = message.mentions.members.first();
 
+		if (!memberToUnmute) {
+			message.channel.send('Please mention a user to unmute!');
+			return;
+		}
 
-        if (message.member.roles.has(roleIDs.mod)){
+		if (!mutedUserList.mutedUsers.includes(memberToUnmute.id.toString())) {
+			message.channel.send('User is not muted!');
+			return;
+		}
 
-            const mutedJSONString = fs.readFileSync('muted.json','utf8');
-            console.log("String: " + mutedJSONString);
+		const unmuteEmbed = new RichEmbed()
+			.setTitle('User Unmute')
+			.setColor('#00FF00')
+			.addField('User Unmuted', `${memberToUnmute}`)
+			.addField('Unmuted By', `${message.author}`, true)
+			.setFooter(`${message.createdAt}`);
 
-            var mutedJSON = JSON.parse(mutedJSONString);
-            console.log("String: " + mutedJSON);
-            console.log("Keys = ",Object.keys(mutedJSON[0]));
+		for (const [index, userId] of mutedUserList.mutedUsers.entries()) {
+			if (userId === memberToUnmute.id) {
+				mutedUserList.mutedUsers.splice(index, 1);
+				break;
+			}
+		}
 
-            person = args[0]
-            args[0] = message.mentions.members.first().id;   
-            
-            if(args.length == 1){
-                userExists = false;
-                i = 0;
-                console.log("Length: "+Object.keys(mutedJSON).length, "\ni: " + i)
-                while(Object.keys(mutedJSON).length>i){
-                    console.log("user: " + mutedJSON[i].user, "\nargs[0]: " +args[0])
-                    if(args[0] == mutedJSON[i].user){
-                        message.reply("Unmuted " + person);
-                        j = i;
-                        userExists = true;
-                    }
-                    i++
-                }
-
-                if(!userExists) {
-                    message.reply(person + " wasn't muted in the first place.");
-                    return;
-                }
-
-                console.log(mutedJSON[j]);
-
-                mutedJSON.splice(j, 1)
-
-                console.log(mutedJSON[j]);
-
-
-                
-            }else{
-                message.reply("Too few or too many arguments");
-                return;
-            }
-           
-            fs.writeFile ("muted.json", JSON.stringify(mutedJSON), function(err) {
-                if (err) throw err;
-                console.log('complete');
-                }
-            );
-
-            console.log(args[0]);
-            console.log("It works", args[0]);
-        }
+		writeFile('utils/muted.json', JSON.stringify(mutedUserList), (err) => {
+			if (err) {
+				throw err;
+			}
+			message.react('✅');
+			message.client.channels.get(adminLogging).send(unmuteEmbed);
+		});
 	}
 };
