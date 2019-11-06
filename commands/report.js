@@ -22,10 +22,9 @@ module.exports = {
 		const reportEmbed = new RichEmbed()
 			.setTitle('Report')
 			.setColor('#FF0000')
-			.addField('Reported User', `${user}`)
+			.addField('Reported User', `${user}`, true)
+			.addField('Reported by', `${message.author}`, true)
 			.addField('Reason', `${reason}`)
-			.addField('Channel', `${message.channel}`)
-			.addField('Reported by', `${message.author}`)
 			.setFooter(`${message.createdAt}`);
 
 		message.delete();

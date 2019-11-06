@@ -1,12 +1,20 @@
 const {RichEmbed} = require('discord.js');
 const {bannedWords} = require('../utils/profanities.json');
+const {mutedUsers} = require('../utils/muted.json');
 
 module.exports = (client, message) => {
 	const {prefix, channelIDs, roleIDs} = client.config;
 
+	for (const mutedUser of mutedUsers) {
+		if (message.author.id === mutedUser) {
+			message.delete();
+			break;
+		}
+	}
+
 	for (const bannedWord of bannedWords) {
 		if (message.content.includes(bannedWord) && !message.author.bot) {
-			if (message.content.startsWith('!unbanword')) {
+			if (message.content.startsWith('!unbanword') && message.member.roles.has(roleIDs.mod)) {
 				break;
 			}
 			message.delete();
@@ -14,13 +22,12 @@ module.exports = (client, message) => {
 			const bannedWordUseEmbed = new RichEmbed()
 				.setTitle('Banned word used UwU')
 				.setColor('#FF0000')
-				.addField('User', `${message.author}`)
-				.addField('Location', `${message.channel}`)
+				.addField('User', `${message.author}`, true)
+				.addField('Location', `${message.channel}`, true)
 				.addField('Message', `${message.content}`)
 				.setFooter(`${message.createdAt}`);
 
 			client.channels.get(channelIDs.adminLogging).send(bannedWordUseEmbed);
-
 			break;
 		}
 	}
