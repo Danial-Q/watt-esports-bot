@@ -1,12 +1,14 @@
 const {writeFile} = require('fs');
 const mutedUserList = require('../utils/muted.json');
 const {RichEmbed} = require('discord.js');
+const {getDiscordId} = require('../utils/functions.js');
 
 module.exports = {
 	name: 'unmute',
 	description: 'Unmuted a mentioned user',
 	guildOnly: true,
 	modOnly: true,
+	usage: 'unmute <user>',
 	execute(message) {
 		const {adminLogging} = message.client.config.channelIDs;
 		const memberToUnmute = message.mentions.members.first();
@@ -22,10 +24,10 @@ module.exports = {
 		}
 
 		const unmuteEmbed = new RichEmbed()
+			.setAuthor(getDiscordId(memberToUnmute.user), memberToUnmute.user.avatarURL)
 			.setTitle('User Unmute')
 			.setColor('#00FF00')
-			.addField('User Unmuted', `${memberToUnmute}`)
-			.addField('Unmuted By', `${message.author}`, true)
+			.addField('Unmuted By', `${message.author}`)
 			.setFooter(`${message.createdAt}`);
 
 		for (const [index, userId] of mutedUserList.mutedUsers.entries()) {

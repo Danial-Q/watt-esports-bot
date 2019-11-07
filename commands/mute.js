@@ -1,6 +1,7 @@
 const {RichEmbed} = require('discord.js');
 const {writeFile} = require('fs');
 const mutedUsersList = require('../utils/muted.json');
+const {getDiscordId} = require('../utils/functions.js');
 
 module.exports = {
 	name: 'mute',
@@ -23,10 +24,10 @@ module.exports = {
 			return;
 		}
 		const muteEmbed = new RichEmbed()
-			.setTitle('User Mute')
+			.setAuthor(getDiscordId(memberToMute.user), memberToMute.user.avatarURL)
+			.setTitle('User Muted')
 			.setColor('#FF0000')
-			.addField('User', `${memberToMute}`, true)
-			.addField('Muted by', `${message.author}`, true)
+			.addField('Muted by', `${message.author}`)
 			.addField('Reason', `${reason}`)
 			.setFooter(`${message.createdAt}`);
 

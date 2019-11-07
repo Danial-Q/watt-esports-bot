@@ -1,4 +1,6 @@
 const {RichEmbed} = require('discord.js');
+const {getDiscordId} = require('../utils/functions.js');
+const moment = require('moment');
 
 module.exports = (client, oldMessage, newMessage) => {
 	const {adminLogging} = client.config.channelIDs;
@@ -9,13 +11,13 @@ module.exports = (client, oldMessage, newMessage) => {
 	if (user.bot) return;
 
 	const editEmbed = new RichEmbed()
+		.setAuthor(getDiscordId(user), user.avatarURL)
 		.setTitle('Message edit')
-		.setColor('#89CFF0')
-		.addField('User', `${user}`)
+		.setColor('#0098DB')
 		.addField('Location', `${newMessage.channel}`)
 		.addField('Before', `${oldMessageContent}`)
 		.addField('After', `${newMessageContent}`)
-		.setFooter(`${newMessage.editedTImestamp}`);
+		.setFooter(moment().format('h:mm a, Do MMMM YYYY'));
 
 	client.channels.get(adminLogging).send(editEmbed);
 };
