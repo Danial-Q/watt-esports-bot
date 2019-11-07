@@ -1,5 +1,6 @@
 const {RichEmbed} = require('discord.js');
 const GoogleSpreadsheet = require('google-spreadsheet');
+const {getDiscordId} = require('../utils/functions.js');
 
 module.exports = {
 	name: 'listwarn',
@@ -12,7 +13,8 @@ module.exports = {
 		const {channelIDs, spreadsheetID, spreadsheetConfig, guildID} = message.client.config;
 		const spreadsheet = new GoogleSpreadsheet(spreadsheetID);
 		const listWarningEmbed = new RichEmbed()
-			.setTitle(`Warning list for ${user.username}`)
+			.setAuthor(getDiscordId(user), user.avatarURL)
+			.setTitle('List of Warnings')
 			.setColor('#FF0000');
 
 		if (!user) {

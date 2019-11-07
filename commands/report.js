@@ -1,4 +1,5 @@
 const {RichEmbed} = require('discord.js');
+const {getDiscordId} = require('../utils/functions.js');
 
 module.exports = {
 	name: 'report',
@@ -20,9 +21,9 @@ module.exports = {
 		}
 
 		const reportEmbed = new RichEmbed()
+			.setAuthor(getDiscordId(user), user.avatarURL)
 			.setTitle('Report')
 			.setColor('#FF0000')
-			.addField('Reported User', `${user}`, true)
 			.addField('Reported by', `${message.author}`, true)
 			.addField('Reason', `${reason}`)
 			.setFooter(`${message.createdAt}`);

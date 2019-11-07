@@ -97,14 +97,13 @@ module.exports = (client, oldMember, newMember) => {
 	}
 
 	if (oldMember.displayName !== newMember.displayName) {
-		const date = moment().format('h:mm a, Do MMMM YYYY');
 		const nicknameEmbed = new RichEmbed()
 			.setAuthor(newMember.user.username + '#' + newMember.user.discriminator, newMember.user.avatarURL)
 			.setTitle('Nickname Change')
 			.setColor('#0098DB')
 			.addField('Before', `${oldMember.displayName}`, true)
 			.addField('After', `${newMember.displayName}`, true)
-			.setFooter(date);
+			.setFooter(moment().format('h:mm a, Do MMMM YYYY'));
 
 		client.channels.get(channelIDs.adminLogging).send(nicknameEmbed);
 	}

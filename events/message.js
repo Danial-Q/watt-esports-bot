@@ -1,6 +1,7 @@
 const {RichEmbed} = require('discord.js');
 const {bannedWords} = require('../utils/profanities.json');
 const {mutedUsers} = require('../utils/muted.json');
+const {getDiscordId} = require('../utils/functions.js');
 
 module.exports = (client, message) => {
 	const {prefix, channelIDs, roleIDs} = client.config;
@@ -20,10 +21,10 @@ module.exports = (client, message) => {
 			message.delete();
 
 			const bannedWordUseEmbed = new RichEmbed()
+				.setAuthor(getDiscordId(message.author), message.author.avatarURL)
 				.setTitle('Banned word used UwU')
 				.setColor('#FF0000')
-				.addField('User', `${message.author}`, true)
-				.addField('Location', `${message.channel}`, true)
+				.addField('Location', `${message.channel}`)
 				.addField('Message', `${message.content}`)
 				.setFooter(`${message.createdAt}`);
 
