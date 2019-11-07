@@ -8,7 +8,7 @@ module.exports = (client, member) => {
 
 	const leaveEmbed = new RichEmbed()
 		.setAuthor(getDiscordId(user), user.avatarURL)
-		.setColor('#89CFF0')
+		.setColor('#0098DB')
 		.setTitle('RIP User left discord')
 		.setFooter(moment().format('h:mm a, Do MMMM YYYY'));
 
