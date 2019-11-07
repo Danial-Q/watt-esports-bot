@@ -1,3 +1,6 @@
+const {RichEmbed} = require('discord.js');
+const moment = require('moment');
+
 module.exports = (client, oldMember, newMember) => {
 	const {channelIDs, guildID, messageIDs, roleIDs} = client.config;
 
@@ -91,5 +94,18 @@ module.exports = (client, oldMember, newMember) => {
 			});
 
 		client.emit('messageReactionRemove', messageReaction, userObj);
+	}
+
+	if (oldMember.displayName !== newMember.displayName) {
+		const date = moment().format('h:mm a, Do MMMM YYYY');
+		const nicknameEmbed = new RichEmbed()
+			.setAuthor(newMember.user.username + '#' + newMember.user.discriminator, newMember.user.avatarURL)
+			.setTitle('Nickname Change')
+			.setColor('#0098DB')
+			.addField('Before', `${oldMember.displayName}`, true)
+			.addField('After', `${newMember.displayName}`, true)
+			.setFooter(date);
+
+		client.channels.get(channelIDs.adminLogging).send(nicknameEmbed);
 	}
 };
