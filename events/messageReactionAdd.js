@@ -11,7 +11,12 @@ module.exports = (client, reaction, user) => {
 				if (reaction.emoji.name === roleMap.emoji) {
 					guildObj.members.forEach((member) => {
 						if (member.id === user.id) {
-							member.addRole(guildObj.roles.find(r => r.name === roleMap.role));
+							const roleToAdd = guildObj.roles.find(r => r.name === roleMap.role);
+
+							member.addRole(roleToAdd);
+							if (roleToAdd.name === 'Members' || roleToAdd.name === 'HW Members') {
+								member.addRole(guildObj.roles.find(r => r.name === 'LFG'));
+							}
 						}
 					});
 				}
