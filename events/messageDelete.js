@@ -1,5 +1,6 @@
 const {RichEmbed} = require('discord.js');
 const {mutedUsers} = require('../utils/muted.json');
+const {bannedWords} = require('../utils/profanities.json');
 const {getDiscordId} = require('../utils/functions.js');
 const moment = require('moment');
 
@@ -10,10 +11,23 @@ module.exports = (client, deletedMessage) => {
 
 	if (user.bot) return;
 
+	// Prevents logging muting users messages
 	for (const mutedUser of mutedUsers) {
 		if (user.id === mutedUser) {
 			return;
 		}
+	}
+
+	// Prevents double logging when banned word used
+	for (const word of bannedWords) {
+		if (deletedMessageContent.includes(word)) {
+			return;
+		}
+	}
+
+	// Prevents double logging when a report is issued
+	if (deletedMessageContent.startsWith('!report')) {
+		return;
 	}
 
 	const deleteEmbed = new RichEmbed()
