@@ -11,7 +11,18 @@ module.exports = (client, reaction, user) => {
 				if (reaction.emoji.name === roleMap.emoji) {
 					guildObj.members.forEach((member) => {
 						if (member.id === user.id) {
-							member.removeRole(guildObj.roles.find(r => r.name === roleMap.role));
+							const roleToRemove = guildObj.roles.find(r => r.name === roleMap.role);
+
+							member.removeRole(roleToRemove).then(() => {
+								const memberRole = member.roles.find(r => r.name === 'Members');
+								const hwMemberRole = member.roles.find(r => r.name === 'HW Members');
+
+								if (!memberRole && !hwMemberRole) {
+									if (roleToRemove.name === 'Members' || roleToRemove.name === 'HW Members') {
+										member.removeRole(guildObj.roles.find(r => r.name === 'LFG'));
+									}
+								}
+							});
 						}
 					});
 				}
