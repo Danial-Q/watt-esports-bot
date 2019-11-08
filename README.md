@@ -18,7 +18,7 @@ To add a new command, follow these steps:
 module.exports = {
 	name: 'The triggerword of the command',
 	description: 'Short description of what the command does',
-    guildOnly : true, // Boolean, is not necessary depending on the command
+	guildOnly : true, // Boolean, is not necessary depending on the command
 	modOnly: true, // Boolean, defines if only mods can use the command, is not necessary
 	usage: 'example usage of the command using <> to show variables',
 	execute(message, args) {
@@ -45,33 +45,40 @@ If the event already exists, you can do into the corresponding file and add the 
 
 ## config.json example
 
-```{
-    "token": "Bot token here",
-    "prefix": "Selected prefix",
-    "inviteLink": "Permanent discord invite link",
-    "channelIDs": { // Channel IDs
-        "adminLogging": "Admin log ID",
-        "welcome": "Welcome ID",
-		"getRole": "Get Role ID"
-    },
-	"guildID" : "Guild ID",
-	"messageIDs": { // Message IDs
-		"memberToggle": "Member Toggle ID",
-		"lfgToggle": "LFG Toggle ID"
+```
+{
+	"token": "Bot Token here",
+	"prefix": "Desired prefix",
+	"inviteLink": "Permanent discord invite link",
+	"channelIDs": {
+		"adminLogging": "Relevant ID",
+		"welcome": "Relevant ID",
+		"getRole": "Relevant ID"
 	},
-    "roleIDs": { // Role IDs
-        "games": "Games Label ID",
-		"hwMember": "HW Members ID",
-		"member": "Members ID",
-		"lfg": "LFG ID",
-		"noLfg: "No LFG ID",
-        "misc": "Misc Label ID",
-        "socMember": "Soc Member ID"
-    },
-    "spreadsheetID": "Spreadsheet ID",
-    "spreadsheetConfig": {
-        Spreadsheet Auth Obj here
-    }
+	"guildID": "Relevant ID",
+	"messageIDs": {
+		"memberToggle": Relevant ID",
+		"lfgToggle": "Relevant ID",
+		"strategyReact": "Relevant ID",
+		"shooterReact": "Relevant ID",
+		"mobaReact": "Relevant ID",
+		"arcadeReact": "Relevant ID",
+		"miscReact": "Relevant ID"
+	},
+	"roleIDs": {
+		"games": "Relevant ID",
+		"hwMember": "Relevant ID6",
+		"member": "Relevant ID",
+		"mod": "Relevant ID",
+		"lfg": "Relevant ID",
+		"noLfg": "Relevant ID",
+		"misc": "Relevant ID",
+		"socMember": "Relevant ID"
+	},
+	"spreadsheetID": "Relevant ID",
+	"spreadsheetConfig": {
+		Spreadsheet Auth Obj here
+	}
 }
 ```
 
