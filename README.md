@@ -18,7 +18,9 @@ To add a new command, follow these steps:
 module.exports = {
 	name: 'The triggerword of the command',
 	description: 'Short description of what the command does',
-    guildOnly : true // Boolean, is not necessary depending on the command
+    guildOnly : true, // Boolean, is not necessary depending on the command
+	modOnly: true, // Boolean, defines if only mods can use the command, is not necessary
+	usage: 'example usage of the command using <> to show variables',
 	execute(message, args) {
 		// code goes here
 	},
