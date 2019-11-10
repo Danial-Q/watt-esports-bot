@@ -23,11 +23,9 @@ module.exports = {
 								break;
 							}
 						}
-
 					}
 
 					if (warnID === undefined) {
-						console.log('yay');
 						if (row.memberid === user.id) {
 							row.del();
 							message.react('✅');

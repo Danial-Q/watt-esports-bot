@@ -13,12 +13,12 @@ module.exports = {
 		const counts = {};
 		let logMessage = 'Below are the warnings with counts \n';
 
-
 		spreadsheet.useServiceAccountAuth(spreadsheetConfig, () => {
 			spreadsheet.getRows(3, (err, rows) => {
 				for (const row of rows) {
 					memberIdArray.push(row.memberid);
 				}
+
 				memberIdArray.forEach((index) => {
 					counts[index] = (counts[index] || 0) + 1;
 				});
@@ -28,6 +28,7 @@ module.exports = {
 
 					logMessage += `${member} has ${entry[1]} warning(s) \n`;
 				}
+
 				message.client.channels.get(channelIDs.adminLogging).send(logMessage);
 			});
 		});

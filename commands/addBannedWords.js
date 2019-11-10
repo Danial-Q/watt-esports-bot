@@ -1,5 +1,5 @@
-const {writeFile} = require('fs');
 const bannedWordList = require('../utils/profanities.json');
+const {writeFile} = require('fs');
 
 module.exports = {
 	name: 'banword',
@@ -21,9 +21,8 @@ module.exports = {
 			if (err) {
 				throw err;
 			}
+
 			message.react('✅');
 		});
-
 	}
-
 };

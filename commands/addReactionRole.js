@@ -1,5 +1,5 @@
-const {writeFile} = require('fs');
 const reactMap = require('../utils/reactRoleMap.json');
+const {writeFile} = require('fs');
 
 module.exports = {
 	name: 'addrole',
@@ -43,6 +43,7 @@ module.exports = {
 					.then(messageToAddReact => {
 						messageToAddReact.react(emojiNameRaw.substr(subStrLength).slice(0, -1));
 					});
+
 				message.react('✅');
 			}
 		}

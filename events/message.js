@@ -1,3 +1,4 @@
+const moment = require('moment');
 const {RichEmbed} = require('discord.js');
 const {bannedWords} = require('../utils/profanities.json');
 const {mutedUsers} = require('../utils/muted.json');
@@ -5,6 +6,9 @@ const {getDiscordId} = require('../utils/functions.js');
 
 module.exports = (client, message) => {
 	const {prefix, channelIDs, roleIDs} = client.config;
+	const args = message.content.slice(prefix.length).split(/ +/);
+	const commandName = args.shift().toLowerCase();
+	const command = client.commands.get(commandName);
 
 	for (const mutedUser of mutedUsers) {
 		if (message.author.id === mutedUser) {
@@ -18,6 +22,7 @@ module.exports = (client, message) => {
 			if (message.content.startsWith('!unbanword') && message.member.roles.has(roleIDs.mod)) {
 				break;
 			}
+
 			message.delete();
 
 			const bannedWordUseEmbed = new RichEmbed()
@@ -26,7 +31,7 @@ module.exports = (client, message) => {
 				.setColor('#FF0000')
 				.addField('Location', `${message.channel}`)
 				.addField('Message', `${message.content}`)
-				.setFooter(`${message.createdAt}`);
+				.setFooter(moment().format('h:mm a, Do MMMM YYYY'));
 
 			client.channels.get(channelIDs.adminLogging).send(bannedWordUseEmbed);
 			break;
@@ -39,11 +44,7 @@ module.exports = (client, message) => {
 		message.channel.send('!!');
 	}
 
-	const args = message.content.slice(prefix.length).split(/ +/);
-	const commandName = args.shift().toLowerCase();
-
 	if (!client.commands.has(commandName)) return;
-	const command = client.commands.get(commandName);
 
 	try {
 		if (command.guildOnly && message.channel.type !== 'text') {

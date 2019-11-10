@@ -1,6 +1,6 @@
-const {RichEmbed} = require('discord.js');
 const GoogleSpreadsheet = require('google-spreadsheet');
 const moment = require('moment');
+const {RichEmbed} = require('discord.js');
 const {getDiscordId} = require('../utils/functions.js');
 
 module.exports = {
@@ -33,6 +33,7 @@ module.exports = {
 				for (const row of rows) {
 					memberIdArray.push(row.memberid);
 				}
+
 				memberIdArray.forEach((index) => {
 					counts[index] = (counts[index] || 0) + 1;
 				});

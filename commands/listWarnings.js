@@ -1,5 +1,6 @@
-const {RichEmbed} = require('discord.js');
+const moment = require('moment');
 const GoogleSpreadsheet = require('google-spreadsheet');
+const {RichEmbed} = require('discord.js');
 const {getDiscordId} = require('../utils/functions.js');
 
 module.exports = {
@@ -15,7 +16,8 @@ module.exports = {
 		const listWarningEmbed = new RichEmbed()
 			.setAuthor(getDiscordId(user), user.avatarURL)
 			.setTitle('List of Warnings')
-			.setColor('#FF0000');
+			.setColor('#FF0000')
+			.setFooter(moment().format('h:mm a, Do MMMM YYYY'));
 
 		if (!user) {
 			message.channel.send('Please mention a user to get their list of warnings');
