@@ -5,7 +5,7 @@ const {getDiscordId} = require('../utils/functions.js');
 
 module.exports = {
 	name: 'mute',
-	description: 'Mutes a user with a given reason',
+	description: 'Mutes a mentioned user with a given reason',
 	guildOnly: true,
 	modOnly: true,
 	usage: 'mute <user> <reason>',
