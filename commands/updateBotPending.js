@@ -1,4 +1,5 @@
 const GoogleSpreadsheet = require('google-spreadsheet');
+const {getDiscordId} = require('../utils/functions.js');
 
 module.exports = {
 	name: 'update',
@@ -20,7 +21,7 @@ module.exports = {
 
 								guildObj.members.forEach((member) => {
 									if (member.id === botPendingRow.discordid) {
-										verifiedRow.discordname = member.user.username + '#' + member.user.discriminator;
+										verifiedRow.discordname = getDiscordId(member.user);
 										verifiedRow.updated = 'Yes';
 										verifiedRow.save();
 										member.addRole(roleIDs.socMember);

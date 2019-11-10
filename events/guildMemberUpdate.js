@@ -1,5 +1,5 @@
-const {RichEmbed} = require('discord.js');
 const moment = require('moment');
+const {RichEmbed} = require('discord.js');
 
 module.exports = (client, oldMember, newMember) => {
 	const {channelIDs, guildID, messageIDs, roleIDs} = client.config;

@@ -1,6 +1,7 @@
+const mutedUsersList = require('../utils/muted.json');
+const moment = require('moment');
 const {RichEmbed} = require('discord.js');
 const {writeFile} = require('fs');
-const mutedUsersList = require('../utils/muted.json');
 const {getDiscordId} = require('../utils/functions.js');
 
 module.exports = {
@@ -29,14 +30,14 @@ module.exports = {
 			.setColor('#FF0000')
 			.addField('Muted by', `${message.author}`)
 			.addField('Reason', `${reason}`)
-			.setFooter(`${message.createdAt}`);
-
+			.setFooter(moment().format('h:mm a, Do MMMM YYYY'));
 
 		mutedUsersList.mutedUsers.push(memberToMute.id);
 		writeFile('utils/muted.json', JSON.stringify(mutedUsersList), (err) => {
 			if (err) {
 				throw err;
 			}
+
 			message.react('✅');
 			message.client.channels.get(adminLogging).send(muteEmbed);
 		});

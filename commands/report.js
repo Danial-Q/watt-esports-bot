@@ -1,3 +1,4 @@
+const moment = require('moment');
 const {RichEmbed} = require('discord.js');
 const {getDiscordId} = require('../utils/functions.js');
 
@@ -26,7 +27,7 @@ module.exports = {
 			.setColor('#FF0000')
 			.addField('Reported by', `${message.author}`, true)
 			.addField('Reason', `${reason}`)
-			.setFooter(`${message.createdAt}`);
+			.setFooter(moment().format('h:mm a, Do MMMM YYYY'));
 
 		message.delete();
 		message.author.send('Your report has been submitted!');

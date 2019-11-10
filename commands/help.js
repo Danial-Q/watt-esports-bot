@@ -10,10 +10,12 @@ module.exports = {
 		const {prefix, roleIDs} = config;
 		const helpEmbed = new RichEmbed()
 			.setTitle('Commands Info')
-			.setColor('#000080');
+			.setColor('#000080')
+			.setFooter('Got a suggestion for a command? Let a moderator know!');
 		const adminEmbed = new RichEmbed()
 			.setTitle('Admin Commands')
-			.setColor('#00080');
+			.setColor('#00080')
+			.setFooter('owo what\'s this');
 
 		for (const command of commands.values()) {
 			if (command.modOnly && message.member.roles.has(roleIDs.mod)) {
@@ -23,13 +25,11 @@ module.exports = {
 			}
 		}
 
-		helpEmbed.setFooter('Got a suggestion for a command? Let a moderator know!');
-		adminEmbed.setFooter('owo what\'s this');
-
 		message.author.send(helpEmbed);
 		if (message.member.roles.has(roleIDs.mod)) {
 			message.author.send(adminEmbed);
 		}
+
 		message.react('📧');
 	}
 };
