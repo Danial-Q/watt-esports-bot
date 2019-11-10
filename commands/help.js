@@ -1,7 +1,5 @@
 const {RichEmbed} = require('discord.js');
 
-// TODO: Make RichEmbed menu OR change how this works
-
 module.exports = {
 	name: 'help',
 	description: 'Lists all commands, usage and description',
@@ -12,23 +10,26 @@ module.exports = {
 		const {prefix, roleIDs} = config;
 		const helpEmbed = new RichEmbed()
 			.setTitle('Commands Info')
-			.setColor('#000080')
-			.addField('Below is the full list of commands, with usage', `Prefix for the bot is ${prefix}`)
-			.addBlankField();
+			.setColor('#000080');
+		const adminEmbed = new RichEmbed()
+			.setTitle('Admin Commands')
+			.setColor('#00080');
 
 		for (const command of commands.values()) {
-			if (command.modOnly && !message.member.roles.has(roleIDs.mod)) {
-				continue;
+			if (command.modOnly && message.member.roles.has(roleIDs.mod)) {
+				adminEmbed.addField(`\`${prefix}${command.usage}\``, `${command.description}`);
+			} else {
+				helpEmbed.addField(`\`${prefix}${command.usage}\``, `${command.description}`);
 			}
-			command.modOnly ? helpEmbed.addField('IMPORTANT!', 'Only mods can use these commands, non-mods will see no result if they try execute this') : null;
-			helpEmbed.addField(`${command.description}`, `\`${prefix}${command.usage}\``)
-				.addBlankField();
 		}
 
 		helpEmbed.setFooter('Got a suggestion for a command? Let a moderator know!');
+		adminEmbed.setFooter('owo what\'s this');
 
 		message.author.send(helpEmbed);
+		if (message.member.roles.has(roleIDs.mod)) {
+			message.author.send(adminEmbed);
+		}
 		message.react('📧');
 	}
 };
-

@@ -2,7 +2,7 @@ const GoogleSpreadsheet = require('google-spreadsheet');
 
 module.exports = {
 	name: 'update',
-	description: 'Checks all members on pending tab and verifies if they are paying members',
+	description: 'Updates Society Member list',
 	guildOnly: true,
 	modOnly: true,
 	usage: 'update',

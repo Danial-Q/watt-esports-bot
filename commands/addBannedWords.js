@@ -3,7 +3,7 @@ const bannedWordList = require('../utils/profanities.json');
 
 module.exports = {
 	name: 'banword',
-	description: 'Adds a word to the ban list',
+	description: 'Adds a word to the banned word list',
 	guildOnly: true,
 	modOnly: true,
 	usage: 'banword <wordToAdd>',

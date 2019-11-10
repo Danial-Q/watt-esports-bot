@@ -2,7 +2,7 @@ const GoogleSpreadsheet = require('google-spreadsheet');
 
 module.exports = {
 	name: 'member',
-	description: 'Veriyfing Membership Status',
+	description: 'Verifies that you have paid for the society member role',
 	guildOnly: true,
 	usage: 'member <MatriculationNumber>',
 	execute(message, args) {
